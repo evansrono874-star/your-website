@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mookh. | Upcoming Matches</title>
+    <title>onlinetickets. | Upcoming Matches</title>
     <style>
         :root {
             --bg-color: #0b0f17;
             --card-bg: #161c28;
             --accent-yellow: #f1c40f;
-            --accent-green: #2ecc71;
-            --accent-blue: #2563eb;
+            --accent-orange: #e67e22;
             --text-main: #ffffff;
             --text-muted: #94a3b8;
             --border-color: #1e293b;
@@ -64,57 +63,56 @@
             color: var(--text-main);
         }
 
-        /* Event Banner Header */
+        /* Event Hero */
         .event-hero {
             position: relative;
-            height: 180px;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(11,15,23,1)), url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=800&q=80');
+            height: 160px;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(11,15,23,1)), url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=800&q=80');
             background-size: cover;
             background-position: center;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 20px;
+            padding: 16px 20px;
         }
 
         .event-date {
             color: var(--accent-yellow);
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
             text-transform: uppercase;
         }
 
         .event-location {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 800;
-            margin-top: 4px;
+            margin-top: 2px;
         }
 
         .event-stadium {
             color: var(--text-muted);
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        /* Main Content */
         .content {
-            padding: 20px;
+            padding: 16px 20px;
         }
 
         .section-title {
-            text-align: center;
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 16px;
         }
 
-        /* Match Card */
+        /* Match Banner Card */
         .match-card {
             background-color: var(--card-bg);
             border-radius: 16px;
             overflow: hidden;
             border: 1px solid var(--border-color);
+            margin-bottom: 24px;
         }
 
         .match-poster {
@@ -122,100 +120,108 @@
             display: block;
         }
 
-        .match-details {
+        .match-info-bar {
             padding: 16px;
-        }
-
-        /* Tracking Debug Box */
-        .tracking-info {
-            background-color: rgba(37, 99, 235, 0.1);
-            border: 1px solid rgba(37, 99, 235, 0.3);
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 20px;
-            font-size: 12px;
-            color: #93c5fd;
-        }
-
-        .tracking-info strong {
-            display: block;
-            margin-bottom: 4px;
-            color: #ffffff;
-        }
-         /* Ticket Selection */
-        .ticket-options {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .ticket-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: rgba(255,255,255,0.03);
-            border: 1px solid var(--border-color);
-            padding: 12px 16px;
-            border-radius: 10px;
+            border-top: 1px solid var(--border-color);
         }
 
-        .ticket-info h4 {
-            font-size: 15px;
-            color: var(--text-main);
-        }
-
-        .ticket-info p {
+        .match-teams-meta {
             font-size: 13px;
-            color: var(--accent-yellow);
-            font-weight: 600;
-            margin-top: 2px;
+            color: var(--text-muted);
         }
 
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .btn-qty {
-            width: 32px;
-            height: 32px;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
-            background-color: #1e293b;
+        .match-teams-meta strong {
+            display: block;
             color: var(--text-main);
-            font-size: 18px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-size: 14px;
         }
 
-        .qty-val {
-            font-weight: 700;
-            font-size: 15px;
-            width: 20px;
-            text-align: center;
-        }
-
-        /* Purchase Button */
-        .btn-buy {
-            width: 100%;
-            background-color: var(--accent-yellow);
-            color: #000000;
+        .btn-main-buy {
+            background-color: var(--accent-orange);
+            color: #fff;
             border: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-weight: 800;
-            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
             cursor: pointer;
-            margin-top: 20px;
-            transition: opacity 0.2s;
         }
 
-        .btn-buy:active {
-            opacity: 0.8;
+        /* Ticket Selection View */
+        .ticket-section-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .ticket-subtitle {
+            font-size: 12px;
+            color: var(--accent-orange);
+            margin-bottom: 16px;
+        }
+
+        .ticket-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .ticket-card.vip {
+            border-color: #8b5cf6;
+        }
+
+        .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .ticket-type-name {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .ticket-type-price {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--accent-yellow);
+        }
+
+        .ticket-card.vip .ticket-type-price {
+            color: #c084fc;
+        }
+
+        .ticket-features {
+            list-style: none;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+        }
+
+        .ticket-features li {
+            margin-bottom: 4px;
+        }
+
+        .btn-ticket-action {
+            width: 100%;
+            background-color: var(--accent-orange);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .ticket-card.vip .btn-ticket-action {
+            background-color: #8b5cf6;
         }
 
         /* Checkout Modal */
@@ -226,7 +232,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.85);
             z-index: 1000;
             justify-content: center;
             align-items: flex-end;
@@ -239,11 +245,13 @@
             border-top-left-radius: 20px;
             border-top-right-radius: 20px;
             padding: 24px;
+            max-height: 90vh;
+            overflow-y: auto;
             box-shadow: 0 -5px 25px rgba(0,0,0,0.5);
         }
 
         .modal-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
             margin-bottom: 16px;
             display: flex;
@@ -253,26 +261,7 @@
         .close-modal {
             cursor: pointer;
             color: var(--text-muted);
-        }
-
-        .form-group {
-            margin-bottom: 14px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
- .form-group input {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            background-color: #0b0f17;
-            color: var(--text-main);
-            font-size: 14px;
+            font-size: 18px;
         }
 
         .checkout-summary {
@@ -287,14 +276,81 @@
             display: flex;
             justify-content: space-between;
             margin-bottom: 6px;
+            color: var(--text-muted);
         }
 
         .summary-row.total {
-            font-weight: 700;
+            font-weight: 800;
             color: var(--accent-yellow);
             border-top: 1px solid var(--border-color);
-            padding-top: 6px;
+            padding-top: 8px;
+            margin-top: 6px;
             margin-bottom: 0;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: #0b0f17;
+            color: var(--text-main);
+            font-size: 14px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent-orange);
+        }
+
+        .error-msg {
+            color: #ef4444;
+            font-size: 11px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 40px;
+            padding: 24px 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        footer h4 {
+            color: var(--text-main);
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 12px;
+        }
+
+        .footer-col div {
+            margin-bottom: 4px;
+        }
+
+        .powered-by {
+            text-align: center;
+            font-size: 11px;
+            margin-top: 24px;
+            color: #64748b;
         }
     </style>
 </head>
@@ -314,45 +370,74 @@
         <div class="content">
             <h2 class="section-title">Upcoming Matches</h2>
 
-            <!-- Active Tracking Info Box -->
-            <div class="tracking-info" id="tracking-info">
-                <strong>Campaign Tracking Active:</strong>
-                <span id="utm-display">Detecting traffic source...</span>
-            </div>
-
+            <!-- Match Poster Card -->
             <div class="match-card">
-                <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=80" alt="Bayern Munich vs Ajax Match Poster" class="match-poster">
-
-                <div class="match-details">
-                    <div class="ticket-options">
-                        <div class="ticket-row">
-                            <div class="ticket-info">
-                                <h4>Regular Ticket</h4>
-                                <p>KES 100</p>
-                            </div>
-                            <div class="quantity-controls">
-                                <button class="btn-qty" onclick="adjustQty('regular', -1)">-</button>
-                                <span class="qty-val" id="qty-regular">1</span>
-                                <button class="btn-qty" onclick="adjustQty('regular', 1)">+</button>
-                            </div>
-                        </div>
-
-                        <div class="ticket-row">
-                            <div class="ticket-info">
-                                <h4>VIP Ticket</h4>
-                                <p>KES 2,500</p>
-                            </div>
-                            <div class="quantity-controls">
-                                <button class="btn-qty" onclick="adjustQty('vip', -1)">-</button>
-                                 <span class="qty-val" id="qty-vip">0</span>
-                                <button class="btn-qty" onclick="adjustQty('vip', 1)">+</button>
-                            </div>
-                        </div>
+                <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=80" alt="Match Poster" class="match-poster">
+                <div class="match-info-bar">
+                    <div class="match-teams-meta">
+                        <strong>05 JAN 2027</strong>
+                        FC Bayern vs Ajax
                     </div>
-
-                    <button class="btn-buy" onclick="openCheckout()">Proceed to Buy (<span id="total-price">KES 100</span>)</button>
+                    <button class="btn-main-buy" onclick="scrollToTickets()">Buy Tickets</button>
                 </div>
             </div>
+
+            <!-- Available Tickets Section -->
+            <div id="tickets-section">
+                <div class="ticket-section-title">Available Tickets</div>
+                <div class="ticket-subtitle">FC BAYERN vs AJAX - Raila Odinga International Stadium · 05 JAN 2027</div>
+
+                <!-- Regular Ticket Card -->
+                <div class="ticket-card">
+                    <div class="ticket-header">
+                        <span class="ticket-type-name">Standard Entry</span>
+                        <span class="ticket-type-price">KES 100</span>
+                    </div>
+                    <ul class="ticket-features">
+                        <li>• Gates open 15:00 hrs</li>
+                        <li>• General seating</li>
+                        <li>• Access to main stands</li>
+                    </ul>
+                    <button class="btn-ticket-action" onclick="selectTicket('Standard Entry', 100)">Get Now</button>
+                </div>
+
+                <!-- VIP Ticket Card -->
+                <div class="ticket-card vip">
+                    <div class="ticket-header">
+                        <span class="ticket-type-name" style="color: #c084fc;">VIP Experience</span>
+                        <span class="ticket-type-price">KES 2,500</span>
+                    </div>
+                    <ul class="ticket-features">
+                        <li>• Gates open 15:00 hrs</li>
+                        <li>• Premium VIP seating</li>
+                        <li>• Better viewing angles & Lounge access</li>
+                    </ul>
+                    <button class="btn-ticket-action" onclick="selectTicket('VIP Experience', 2500)">Get Now</button>
+                </div>
+            </div>
+
+            <!-- Footer matching reference -->
+            <footer>
+                <h4>Contact</h4>
+                <div>hello@mookh.africa</div>
+                <div>+254 798 948782</div>
+
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4 style="font-size: 13px;">Socials</h4>
+                        <div>Instagram</div>
+                        <div>Facebook</div>
+                        <div>X</div>
+                    </div>
+                    <div class="footer-col" style="margin-left: 20px;">
+                        <h4 style="font-size: 13px;">Legal</h4>
+                        <div>Privacy Policy</div>
+                        <div>Terms of Service</div>
+                    </div>
+                </div>
+
+                <div class="powered-by">Powered by Mookh</div>
+            </footer>
         </div>
     </div>
 
@@ -360,71 +445,57 @@
     <div class="modal-overlay" id="checkout-modal">
         <div class="modal-body">
             <div class="modal-title">
-                Complete Ticket Purchase
+                <span id="modal-ticket-title">Checkout</span>
                 <span class="close-modal" onclick="closeCheckout()">&times;</span>
             </div>
 
             <div class="checkout-summary">
                 <div class="summary-row">
-                    <span>Regular Tickets:</span>
-                    <span id="summary-regular">1 x KES 100</span>
+                    <span>Your Seat</span>
+                    <strong style="color: #fff;">#NAI-KE594998 · Sec 11 · Lower Row 3</strong>
                 </div>
                 <div class="summary-row">
-                    <span>VIP Tickets:</span>
-                    <span id="summary-vip">0 x KES 2,500</span>
+                    <span>Order Summary</span>
+                    <span id="summary-item-name">1 x Ticket</span>
                 </div>
                 <div class="summary-row total">
-                    <span>Total Amount:</span>
-                    <span id="summary-total">KES 100</span>
+                    <span>Total</span>
+                    <span id="summary-total-price">KES 100</span>
                 </div>
             </div>
 
             <form onsubmit="handlePayment(event)">
                 <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" placeholder="e.g. John Doe" required>
+                    <label>Full Name *</label>
+                    <input type="text" id="pay-name" placeholder="John Doe" required>
                 </div>
                 <div class="form-group">
-                    <label>M-Pesa Phone Number</label>
-                    <input type="tel" placeholder="0712345678" required>
+                    <label>Email Address *</label>
+                    <input type="email" id="pay-email" placeholder="john@example.com" required>
                 </div>
-                <button type="submit" class="btn-buy" style="margin-top: 10px;">Pay with M-Pesa</button>
+                <div class="form-group">
+                    <label>M-Pesa Phone Number *</label>
+                    <input type="tel" id="pay-phone" placeholder="0712345678" oninput="validatePhone(this)" required>
+                    <div class="error-msg" id="phone-error">Enter a valid M-Pesa phone number (e.g. 0712345678)</div>
+                </div>
+                <button type="submit" id="pay-btn" class="btn-ticket-action" style="margin-top: 10px;">Pay KES 100 via M-Pesa</button>
             </form>
         </div>
     </div>
 
     <script>
-        let quantities = {
-            regular: 1,
-            vip: 0
-        };
+        let currentTicket = { name: 'Standard Entry', price: 100 };
 
-        const prices = {
-            regular: 100,
-            vip: 2500
-        };
-
-        function adjustQty(type, change) {
-            quantities[type] = Math.max(0, quantities[type] + change);
-            document.getElementById(qty-${type}).innerText = quantities[type];
-            updateTotal();
+        function scrollToTickets() {
+            document.getElementById('tickets-section').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function updateTotal() {
-            const total = (quantities.regular * prices.regular) + (quantities.vip * prices.vip);
-            document.getElementById('total-price').innerText = KES ${total.toLocaleString()};
-        }
-
-        function openCheckout() {
-            const total = (quantities.regular * prices.regular) + (quantities.vip * prices.vip);
-            if (total === 0) {
-                alert('Please select at least one ticket.');
-                return;
-            }
-
-            document.getElementById('summary-regular').innerText = ${quantities.regular} x KES ${prices.regular};
-            document.getElementById('summary-vip').innerText = ${quantities.vip} x KES ${prices.vip.toLocaleString()};
-            document.getElementById('summary-total').innerText = KES ${total.toLocaleString()};
+        function selectTicket(name, price) {
+            currentTicket = { name, price };
+            document.getElementById('modal-ticket-title').innerText = name;
+            document.getElementById('summary-item-name').innerText = `1 x ${name}`;
+            document.getElementById('summary-total-price').innerText = `KES ${price.toLocaleString()}`;
+            document.getElementById('pay-btn').innerText = `Pay KES ${price.toLocaleString()} via M-Pesa`;
             document.getElementById('checkout-modal').style.display = 'flex';
         }
 
@@ -432,27 +503,37 @@
             document.getElementById('checkout-modal').style.display = 'none';
         }
 
-        function handlePayment(e) {
-            e.preventDefault();
-            alert('STK Push sent to your M-Pesa phone number. Enter PIN to complete purchase!');
-            closeCheckout();
+        function validatePhone(input) {
+            const phoneError = document.getElementById('phone-error');
+            const cleanPhone = input.value.trim();
+            const isValid = /^(?:254|\+254|0)?([17][0-9]{8})$/.test(cleanPhone);
+            
+            if (cleanPhone.length > 3 && !isValid) {
+                phoneError.style.display = 'block';
+            } else {
+                phoneError.style.display = 'none';
+            }
         }
 
-        // Parse and log UTM parameters
-        window.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            const source = params.get('utm_source') || 'Direct';
-            const medium = params.get('utm_medium') || 'None';
-            const campaign = params.get('utm_campaign') || 'None';
-            const fbclid = params.get('fbclid');
+        function handlePayment(e) {
+            e.preventDefault();
+            const phone = document.getElementById('pay-phone').value;
+            const btn = document.getElementById('pay-btn');
+            
+            btn.innerText = 'Processing Payment...';
+            btn.disabled = true;
 
-            let trackingText = Source: ${source} | Medium: ${medium} | Campaign: ${campaign};
-            if (fbclid) {
-                trackingText += ` | Meta ID Detected`;
-            }
-
-            document.getElementById('utm-display').innerText = trackingText;
-        });
+            setTimeout(() => {
+                btn.innerText = 'Waiting for M-Pesa confirmation...';
+                setTimeout(() => {
+                    alert(`Carrier Info:\nDo you want to pay KES ${currentTicket.price.toLocaleString()} to WEBMIKXE TECHNOLOGIES?\nEnter M-PESA PIN: [••••]`);
+                    alert('Payment successful! Your ticket has been confirmed.');
+                    btn.innerText = `Pay KES ${currentTicket.price.toLocaleString()} via M-Pesa`;
+                    btn.disabled = false;
+                    closeCheckout();
+                }, 2000);
+            }, 1500);
+        }
     </script>
 </body>
 </html>
