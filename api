@@ -1,0 +1,86 @@
+// api/stkpush.js
+const axios = require('axios');
+
+module.exports = async (req, res) => {
+    if (req.method !== 'POST') {
+        return res.status(405).json({ message: 'Method Not Allowed' });
+    }
+
+    const { phone, amount } = req.body;
+
+    if (!phone || !amount) {
+        return res.status(400).json({ message: 'Phone number and amount are required.' });
+    }
+
+    // Format phone number to 254XXXXXXXXX
+    let formattedPhone = phone.trim();
+    if (formattedPhone.startsWith('0')) {
+        formattedPhone = '254' + formattedPhone.substring(1);
+    } else if (formattedPhone.startsWith('+')) {
+        formattedPhone = formattedPhone.substring(1);
+    }
+
+    const consumerKey = process.env.CONSUMER_KEY;
+    const consumerSecret = process.env.CONSUMER_SECRET;
+    const passkey = process.env.PASSKEY;
+    const shortcode = process.env.BUSINESS_SHORTCODE; // Your Paybill Number
+    const callbackUrl = process.env.CALLBACK_URL; // Your Vercel domain callback endpoint
+
+    try {
+        // 1. Generate OAuth Access Token
+        const authBuffer = Buffer.from(`${consumerKey}:${consumerSecret}`).toString('base64');
+        const tokenResponse = await axios.get(
+            'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials',
+            {
+                headers: { Authorization: `Basic ${authBuffer}` }
+            }
+        );
+        const accessToken = tokenResponse.data.access_token;
+
+        // 2. Generate Password and Timestamp
+        const date = new Date();
+        const timestamp = date.getFullYear() +
+            ('0' + (date.getMonth() + 1)).slice(-2) +
+            ('0' + date.getDate()).slice(-2) +
+            ('0' + date.getHours()).slice(-2) +
+            ('0' + date.getMinutes()).slice(-2) +
+            ('0' + date.getSeconds()).slice(-2);
+
+        const password = Buffer.from(shortcode + passkey + timestamp).toString('base64');
+
+        // 3. Send STK Push Request
+        const stkResponse = await axios.post(
+            'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest',
+            {
+                BusinessShortCode: shortcode,
+                Password: password,
+                Timestamp: timestamp,
+                TransactionType: 'CustomerPayBillOnline',
+                Amount: amount,
+                PartyA: formattedPhone,
+                PartyB: shortcode,
+                PhoneNumber: formattedPhone,
+                CallBackURL: callbackUrl,
+                AccountReference: 'MookhTickets',
+                TransactionDesc: 'Ticket Purchase'
+            },
+            {
+                headers: { Authorization: `Bearer ${accessToken}` }
+            }
+        );
+
+        return res.status(200).json({
+            success: true,
+            message: 'STK push sent successfully',
+            data: stkResponse.data
+        });
+
+    } catch (error) {
+        console.error('STK Push Error:', error.response?.data || error.message);
+        return res.status(500).json({
+            success: false,
+            message: 'Failed to initiate M-Pesa payment.',
+            error: error.response?.data || error.message
+        });
+    }
+};
