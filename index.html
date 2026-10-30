@@ -3,21 +3,456 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event & Campaign Landing Page</title>
+    <title>mookh. | Upcoming Matches</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-        body { background-color: #f5f5f7; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-        .container { background: #ffffff; border-radius: 16px; padding: 40px 30px; max-width: 480px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.08); text-align: center; }
-        h1 { font-size: 24px; color: #1d1d1f; margin-bottom: 12px; }
-        p { color: #86868b; font-size: 15px; line-height: 1.5; margin-bottom: 24px; }
-        .btn { display: inline-block; width: 100%; background-color: #0071e3; color: #ffffff; font-weight: 600; padding: 14px 0; border-radius: 8px; text-decoration: none; }
+        :root {
+            --bg-color: #0b0f17;
+            --card-bg: #161c28;
+            --accent-yellow: #f1c40f;
+            --accent-green: #2ecc71;
+            --accent-blue: #2563eb;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            background-color: var(--bg-color);
+            min-height: 100vh;
+            padding-bottom: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        /* Header */
+        header {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand-logo {
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--accent-yellow);
+            letter-spacing: -1px;
+        }
+
+        .brand-logo span {
+            color: var(--text-main);
+        }
+
+        /* Event Banner Header */
+        .event-hero {
+            position: relative;
+            height: 180px;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(11,15,23,1)), url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+        }
+
+        .event-date {
+            color: var(--accent-yellow);
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .event-location {
+            font-size: 20px;
+            font-weight: 800;
+            margin-top: 4px;
+        }
+
+        .event-stadium {
+            color: var(--text-muted);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Main Content */
+        .content {
+            padding: 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        /* Match Card */
+        .match-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .match-poster {
+            width: 100%;
+            display: block;
+        }
+
+        .match-details {
+            padding: 16px;
+        }
+
+        /* Tracking Debug Box */
+        .tracking-info {
+            background-color: rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 12px;
+            color: #93c5fd;
+        }
+
+        .tracking-info strong {
+            display: block;
+            margin-bottom: 4px;
+            color: #ffffff;
+        }
+         /* Ticket Selection */
+        .ticket-options {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .ticket-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-color);
+            padding: 12px 16px;
+            border-radius: 10px;
+        }
+
+        .ticket-info h4 {
+            font-size: 15px;
+            color: var(--text-main);
+        }
+
+        .ticket-info p {
+            font-size: 13px;
+            color: var(--accent-yellow);
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-qty {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: #1e293b;
+            color: var(--text-main);
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qty-val {
+            font-weight: 700;
+            font-size: 15px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Purchase Button */
+        .btn-buy {
+            width: 100%;
+            background-color: var(--accent-yellow);
+            color: #000000;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: opacity 0.2s;
+        }
+
+        .btn-buy:active {
+            opacity: 0.8;
+        }
+
+        /* Checkout Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .modal-body {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 480px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 -5px 25px rgba(0,0,0,0.5);
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .close-modal {
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+ .form-group input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: #0b0f17;
+            color: var(--text-main);
+            font-size: 14px;
+        }
+
+        .checkout-summary {
+            background-color: #0b0f17;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 13px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .summary-row.total {
+            font-weight: 700;
+            color: var(--accent-yellow);
+            border-top: 1px solid var(--border-color);
+            padding-top: 6px;
+            margin-bottom: 0;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to Our Event</h1>
-        <p>Get your tickets and join us for an exclusive experience.</p>
-        <a href="#" class="btn">Get Tickets Now</a>
+
+    <div class="app-container">
+        <header>
+            <div class="brand-logo">mookh<span>.</span></div>
+        </header>
+
+        <div class="event-hero">
+            <div class="event-date">TUE. 05/01/2027</div>
+            <div class="event-location">NAIROBI, KENYA</div>
+            <div class="event-stadium">RAILA ODINGA INTERNATIONAL STADIUM</div>
+        </div>
+
+        <div class="content">
+            <h2 class="section-title">Upcoming Matches</h2>
+
+            <!-- Active Tracking Info Box -->
+            <div class="tracking-info" id="tracking-info">
+                <strong>Campaign Tracking Active:</strong>
+                <span id="utm-display">Detecting traffic source...</span>
+            </div>
+
+            <div class="match-card">
+                <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=80" alt="Bayern Munich vs Ajax Match Poster" class="match-poster">
+
+                <div class="match-details">
+                    <div class="ticket-options">
+                        <div class="ticket-row">
+                            <div class="ticket-info">
+                                <h4>Regular Ticket</h4>
+                                <p>KES 100</p>
+                            </div>
+                            <div class="quantity-controls">
+                                <button class="btn-qty" onclick="adjustQty('regular', -1)">-</button>
+                                <span class="qty-val" id="qty-regular">1</span>
+                                <button class="btn-qty" onclick="adjustQty('regular', 1)">+</button>
+                            </div>
+                        </div>
+
+                        <div class="ticket-row">
+                            <div class="ticket-info">
+                                <h4>VIP Ticket</h4>
+                                <p>KES 2,500</p>
+                            </div>
+                            <div class="quantity-controls">
+                                <button class="btn-qty" onclick="adjustQty('vip', -1)">-</button>
+                                 <span class="qty-val" id="qty-vip">0</span>
+                                <button class="btn-qty" onclick="adjustQty('vip', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-buy" onclick="openCheckout()">Proceed to Buy (<span id="total-price">KES 100</span>)</button>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkout-modal">
+        <div class="modal-body">
+            <div class="modal-title">
+                Complete Ticket Purchase
+                <span class="close-modal" onclick="closeCheckout()">&times;</span>
+            </div>
+
+            <div class="checkout-summary">
+                <div class="summary-row">
+                    <span>Regular Tickets:</span>
+                    <span id="summary-regular">1 x KES 100</span>
+                </div>
+                <div class="summary-row">
+                    <span>VIP Tickets:</span>
+                    <span id="summary-vip">0 x KES 2,500</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total Amount:</span>
+                    <span id="summary-total">KES 100</span>
+                </div>
+            </div>
+
+            <form onsubmit="handlePayment(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="e.g. John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label>M-Pesa Phone Number</label>
+                    <input type="tel" placeholder="0712345678" required>
+                </div>
+                <button type="submit" class="btn-buy" style="margin-top: 10px;">Pay with M-Pesa</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let quantities = {
+            regular: 1,
+            vip: 0
+        };
+
+        const prices = {
+            regular: 100,
+            vip: 2500
+        };
+
+        function adjustQty(type, change) {
+            quantities[type] = Math.max(0, quantities[type] + change);
+            document.getElementById(qty-${type}).innerText = quantities[type];
+            updateTotal();
+        }
+
+        function updateTotal() {
+            const total = (quantities.regular * prices.regular) + (quantities.vip * prices.vip);
+            document.getElementById('total-price').innerText = KES ${total.toLocaleString()};
+        }
+
+        function openCheckout() {
+            const total = (quantities.regular * prices.regular) + (quantities.vip * prices.vip);
+            if (total === 0) {
+                alert('Please select at least one ticket.');
+                return;
+            }
+
+            document.getElementById('summary-regular').innerText = ${quantities.regular} x KES ${prices.regular};
+            document.getElementById('summary-vip').innerText = ${quantities.vip} x KES ${prices.vip.toLocaleString()};
+            document.getElementById('summary-total').innerText = KES ${total.toLocaleString()};
+            document.getElementById('checkout-modal').style.display = 'flex';
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkout-modal').style.display = 'none';
+        }
+
+        function handlePayment(e) {
+            e.preventDefault();
+            alert('STK Push sent to your M-Pesa phone number. Enter PIN to complete purchase!');
+            closeCheckout();
+        }
+
+        // Parse and log UTM parameters
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const source = params.get('utm_source') || 'Direct';
+            const medium = params.get('utm_medium') || 'None';
+            const campaign = params.get('utm_campaign') || 'None';
+            const fbclid = params.get('fbclid');
+
+            let trackingText = Source: ${source} | Medium: ${medium} | Campaign: ${campaign};
+            if (fbclid) {
+                trackingText += ` | Meta ID Detected`;
+            }
+
+            document.getElementById('utm-display').innerText = trackingText;
+        });
+    </script>
 </body>
 </html>
